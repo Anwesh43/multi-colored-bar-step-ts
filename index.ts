@@ -182,3 +182,25 @@ class MultiColoredBar {
         this.curr.startUpdating(cb)
     }
 }
+
+class Renderer {
+
+    mcb : MultiColoredBar = new MultiColoredBar()
+    animator : Animator = new Animator()
+
+    render(context : CanvasRenderingContext2D) {
+        this.mcb.draw(context)
+    }
+
+    handleTap(cb : Function) {
+        this.mcb.startUpdating(() => {
+            this.animator.start(() => {
+                cb()
+                this.mcb.update(() => {
+                    this.animator.stop()
+                    cb()
+                })
+            })
+        })
+    }
+}
