@@ -4,7 +4,7 @@ const bars : number = 5
 const scGap : number = 0.02 / bars
 const delay : number = 20
 const backColor : string = "#BDBDBD"
-const colors : Array<String> = ["#9C27B0", "#4CAF50", "#F44336", "#FFEB3B", "#03A9F4"]
+const colors : Array<string> = ["#9C27B0", "#4CAF50", "#F44336", "#FFEB3B", "#03A9F4"]
 
 class ScaleUtil {
 
@@ -18,6 +18,27 @@ class ScaleUtil {
 
     static sinify(scale : number) : number {
         return Math.sin(scale * Math.PI)
+    }
+}
+
+class DrawingUtil {
+    static drawColoredBar(context : CanvasRenderingContext2D, i : number, scale : number) {
+        const sf : number = ScaleUtil.sinify(scale)
+        const sfi : number = ScaleUtil.divideScale(sf, i, bars)
+        const sj : number = i % 2
+        const gap : number = w / bars
+        const y : number = h * (1 - sfi) * sj
+        context.save()
+        context.translate(gap * i, 0)
+        context.fillRect(0, y, gap, h * sfi)
+        context.restore()
+    }
+
+    static drawMCBNode(context : CanvasRenderingContext2D, i : number, scale : number) {
+        context.fillStyle = colors[i]
+        for (var j = 0; j < bars; j++) {
+            DrawingUtil.drawColoredBar(context, j, scale)
+        }
     }
 }
 
