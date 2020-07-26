@@ -1,8 +1,8 @@
 const w : number = window.innerWidth
 const h : number = window.innerHeight
-const bars : number = 5
+const bars : number = 10
 const scGap : number = 0.02 / bars
-const delay : number = 20
+const delay : number = 15
 const backColor : string = "#BDBDBD"
 const colors : Array<string> = ["#9C27B0", "#4CAF50", "#F44336", "#FFEB3B", "#03A9F4"]
 
@@ -13,7 +13,7 @@ class ScaleUtil {
     }
 
     static divideScale(scale : number, i : number, n : number) : number {
-        return Math.min(1 / n, ScaleUtil.divideScale(scale, i, n)) * n
+        return Math.min(1 / n, ScaleUtil.maxScale(scale, i, n)) * n
     }
 
     static sinify(scale : number) : number {
